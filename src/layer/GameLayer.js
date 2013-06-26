@@ -2,6 +2,7 @@
 //游戏图层
 var GameLayer = cc.Layer.extend({
 	_backTileMap:null,//背景
+	_hero :null,//主角
     init:function () {
         var bRet = false;
         if (this._super()) {
@@ -10,6 +11,9 @@ var GameLayer = cc.Layer.extend({
             this.initControll();
           //背景地图
             this.initBackground();
+            
+          //主角
+            this.initHero();
             bRet = true;
         }
         return bRet;
@@ -34,6 +38,15 @@ var GameLayer = cc.Layer.extend({
         var winSize = cc.Director.getInstance().getWinSize();//屏幕大小
         this._backTileMap.setPosition( new cc.Point(winSize.width/2-contentSize.width/2,winSize.height/2-contentSize.height/2) );
         this.addChild(this._backTileMap, -9);
+    },
+    initHero :function(){
+    	var winSize = cc.Director.getInstance().getWinSize();//屏幕大小
+    	this._hero = new Hero();
+    	
+    	this._hero.setPosition( new cc.Point(winSize.width/2,winSize.height/2) );
+    	this.addChild(this._hero, -8);
+    	
+    	this._hero.idle();
     }
 });
 

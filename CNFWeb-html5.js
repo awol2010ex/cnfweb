@@ -40,7 +40,9 @@ var MW = MW || {};
         appFiles:[
             'src/Resource.js',//资源
             'src/layer/TitleScreen.js',//开机
-            'src/layer/GameLayer.js'//主画面
+            'src/layer/GameLayer.js',//主画面
+            'src/sprite/ActionSprite.js',
+            'src/sprite/Hero.js'//主角
         ]
     };
 
