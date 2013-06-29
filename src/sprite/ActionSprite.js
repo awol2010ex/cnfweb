@@ -19,6 +19,8 @@ var ActionSprite = cc.Sprite
 	
 	_actionState :ActionState.kActionStateNone,
 	_velocity :new cc.Point(0,0),
+	_desiredPosition:new cc.Point(0,0),
+	
 	ctor : function() {
 		this._super();
 	},
@@ -32,5 +34,35 @@ var ActionSprite = cc.Sprite
 			this._velocity = new cc.Point(0,0);
 		}
 		
+	},
+	//ÐÐ×ß
+	walkWithDirection:function(direction){
+		if (this._actionState ==  ActionState.kActionStateIdle)
+		{
+			this.stopAllActions();
+			this.runAction(this._walkAction);
+			this._actionState = ActionState.kActionStateWalk;
+		}
+		if (this._actionState == ActionState.kActionStateWalk)
+		{
+			this._velocity = new cc.Point(direction.x * this._walkSpeed, direction.y * this._walkSpeed);
+			if (this._velocity.x>= 0)
+			{
+				this.setScaleX(1.0);
+			} 
+			else
+			{
+				this.setScaleX(-1.0);
+			}
+		}
+	},
+    setWalkSpeed:function(s){
+		this._walkSpeed =s;
+	},
+	update:function(dt){
+		if (this._actionState == ActionState.kActionStateWalk)
+		{
+			this._desiredPosition =new cc.Point(this.getPosition().x+this._velocity.x*dt ,this.getPosition().y+this._velocity.y*dt )
+		}
 	}
 });

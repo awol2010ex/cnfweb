@@ -1,5 +1,6 @@
 var Hero = ActionSprite.extend({
 	anim_frames_idle : [], // 站立
+	anim_frames_walk : [], // 行走
 	ctor : function() {
 		this._super();
 
@@ -17,5 +18,18 @@ var Hero = ActionSprite.extend({
 		this._idleAction =cc.RepeatForever.create( cc.Animate.create(idle_animation));
 		// 初始帧
 		this.initWithSpriteFrame(this.anim_frames_idle[0]);
+		
+		
+		// walk
+		for ( var i = 0; i <8; i++) {
+			this.anim_frames_walk.push(cc.SpriteFrameCache.getInstance()
+					.getSpriteFrame("ichigo_walk" + i + ".png"));
+		}
+
+		var walk_animation = cc.Animation.create(this.anim_frames_walk,
+				1.0 / 6.0);
+		
+		this._walkAction =cc.RepeatForever.create( cc.Animate.create(walk_animation));
+		
 	}
 });
