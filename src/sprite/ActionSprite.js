@@ -1,4 +1,4 @@
-
+//精灵状态
 var ActionState ={
 	kActionStateNone :0,
 	kActionStateIdle :1,
@@ -21,6 +21,10 @@ var ActionSprite = cc.Sprite
 	_velocity :new cc.Point(0,0),
 	_desiredPosition:new cc.Point(0,0),
 	_isWalking:false,//正在行走
+	
+	_hit_sprite :null ,//效果精灵
+	_attackHitAction :null , //攻击效果
+	_gameLayer :null ,
 	ctor : function() {
 		this._super();
 	},

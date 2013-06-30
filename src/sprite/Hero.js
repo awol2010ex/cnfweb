@@ -4,7 +4,7 @@ var Hero = ActionSprite.extend({
 	anim_frames_attack : [], // 攻击
 	
 	
-	_hit_sprite :null ,//效果精灵
+	
 	ctor : function() {
 		this._super();
 
@@ -44,9 +44,15 @@ var Hero = ActionSprite.extend({
 		}
 
 		var attack_animation = cc.Animation.create(this.anim_frames_attack,
-				1.0 / 6.0);
+				1.0 / 12.0);
 		var callFunc = cc.CallFunc.create(this.attackDone, this, null);// 攻击完站立
 		this._attackAction =cc.Sequence.create( cc.Animate.create(attack_animation),callFunc);
+		
+		
+		this._hit_sprite  =new cc.Sprite();//攻击效果
+		
+		//攻击效果
+		
 		
 	}
 });

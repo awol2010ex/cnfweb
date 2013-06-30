@@ -3,6 +3,7 @@
 var GameLayer = cc.Layer.extend({
 	_backTileMap:null,// 背景
 	_hero :null,// 主角
+	_key_list:{},
     init:function () {
         var bRet = false;
         if (this._super()) {
@@ -46,64 +47,57 @@ var GameLayer = cc.Layer.extend({
     // 主角
     initHero :function(){
     	var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
-    	this._hero = new Hero();
+    	this._hero = new Hero();//精灵
     	
-    	this._hero.setPosition( new cc.Point(winSize.width/2,winSize.height/2) );
+    	this._hero.setPosition( new cc.Point(winSize.width/2,winSize.height/2) );//位置
     	
     	this._hero._desiredPosition= this._hero.getPosition();
-    	
+    	this._hero.setWalkSpeed(160);//步速
+    	this._hero._gameLayer =this;//游戏层
     	this.addChild(this._hero, -8);
-    	this._hero.setWalkSpeed(160);
+    	
     	this._hero.idle();
     },
     // 方向
     onKeyDown:function (key) {  
     	if(36 == key ){// 7
-    		var v =new  cc.Point(-1,1);
     		this._hero._isWalking =true ;
-    		this._hero.walkWithDirection(v);
+    		this._key_list[key]=1;
     	} 
     	else
     	if(38 == key ){// 8
-    		var v =new  cc.Point(0,1);
     		this._hero._isWalking =true ;
-    		this._hero.walkWithDirection(v);
+    		this._key_list[key]=1;
     	}
     	else
         if(33 == key ){// 9
-        	var v =new  cc.Point(1,1);	
         	this._hero._isWalking =true ;
-        	this._hero.walkWithDirection(v);
+        	this._key_list[key]=1;
         }
         else
         if(37 == key ){// 4
-        	var v =new cc.Point(-1,0);	
         	this._hero._isWalking =true ;
-        	this._hero.walkWithDirection(v);
+        	this._key_list[key]=1;
         }
         else
         if(39 == key ){// 6
-            var v =new  cc.Point(1,0);	
-            this._hero._isWalking =true ;
-            this._hero.walkWithDirection(v);
+        	this._hero._isWalking =true ;
+        	this._key_list[key]=1;
         }
         else
         if(35 == key ){// 1
-            var v =new  cc.Point(-1,-1);	
-            this._hero._isWalking =true ;
-            this._hero.walkWithDirection(v);
+        	this._hero._isWalking =true ;
+        	this._key_list[key]=1;
         }
         else
         if(40== key ){// 2
-            var v =new  cc.Point(0,-1);	
-            this._hero._isWalking =true ;
-            this._hero.walkWithDirection(v);
+        	this._hero._isWalking =true ;
+        	this._key_list[key]=1;
         }
         else
         if(34 == key ){// 3
-            var v =new  cc.Point(1,-1);	
-            this._hero._isWalking =true ;
-            this._hero.walkWithDirection(v);
+        	this._hero._isWalking =true ;
+        	this._key_list[key]=1;
         }
         else
         if(cc.KEY.z==key){
@@ -112,11 +106,58 @@ var GameLayer = cc.Layer.extend({
     },
   // 方向
     onKeyUp:function (key) {  
-    	
-    	this._hero._isWalking =false ;
-		
+    	this._key_list[key]=0;//松开
+    	var d =this.getDirection();
+    	if(d.x==0 && d.y==0)
+    	{
+    	  this._hero._isWalking =false ;
+    	}
     },
-    
+    //取得方向
+    getDirection:function(){
+    	var x = 0;
+    	var y = 0;
+    	for(var key  in this._key_list){
+    		if(this._key_list[key]!=1)continue;
+    		if(36 == key ){// 7
+        		x--;
+        		y++;
+        	} 
+        	else
+        	if(38 == key ){// 8
+        		y++;
+        	}
+        	else
+            if(33 == key ){// 9
+            	x++;
+            	y++;
+            }
+            else
+            if(37 == key ){// 4
+            	x--;
+            }
+            else
+            if(39 == key ){// 6
+            	x++;
+            }
+            else
+            if(35 == key ){// 1
+            	x--;
+            	y--;
+            }
+            else
+            if(40== key ){// 2
+            	y--;
+            }
+            else
+            if(34 == key ){// 3
+            	x++;
+            	y--;
+            }
+    	}
+    	
+    	return new cc.Point(x,y);
+    },
     update:function(dt){
     	
     	this._hero.update(dt);//更新英雄
@@ -126,6 +167,12 @@ var GameLayer = cc.Layer.extend({
 			
 			this._hero.idle();
 		}
+        else
+        	//行走
+        if(this._hero._isWalking ){
+        	
+        	this._hero.walkWithDirection(this.getDirection());
+        }
     	//更新位置
     	this.updatePositions();
     },
