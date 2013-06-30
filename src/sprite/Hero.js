@@ -1,6 +1,10 @@
 var Hero = ActionSprite.extend({
 	anim_frames_idle : [], // 站立
 	anim_frames_walk : [], // 行走
+	anim_frames_attack : [], // 攻击
+	
+	
+	_hit_sprite :null ,//效果精灵
 	ctor : function() {
 		this._super();
 
@@ -30,6 +34,19 @@ var Hero = ActionSprite.extend({
 				1.0 / 6.0);
 		
 		this._walkAction =cc.RepeatForever.create( cc.Animate.create(walk_animation));
+		
+		
+
+		// attack
+		for ( var i = 0; i <10; i++) {
+			this.anim_frames_attack.push(cc.SpriteFrameCache.getInstance()
+					.getSpriteFrame("ichigo_attack_one" + i + ".png"));
+		}
+
+		var attack_animation = cc.Animation.create(this.anim_frames_attack,
+				1.0 / 6.0);
+		var callFunc = cc.CallFunc.create(this.attackDone, this, null);// 攻击完站立
+		this._attackAction =cc.Sequence.create( cc.Animate.create(attack_animation),callFunc);
 		
 	}
 });

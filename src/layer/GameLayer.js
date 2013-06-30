@@ -60,56 +60,73 @@ var GameLayer = cc.Layer.extend({
     onKeyDown:function (key) {  
     	if(36 == key ){// 7
     		var v =new  cc.Point(-1,1);
+    		this._hero._isWalking =true ;
     		this._hero.walkWithDirection(v);
     	} 
     	else
     	if(38 == key ){// 8
     		var v =new  cc.Point(0,1);
+    		this._hero._isWalking =true ;
     		this._hero.walkWithDirection(v);
     	}
     	else
         if(33 == key ){// 9
         	var v =new  cc.Point(1,1);	
+        	this._hero._isWalking =true ;
         	this._hero.walkWithDirection(v);
         }
         else
         if(37 == key ){// 4
         	var v =new cc.Point(-1,0);	
+        	this._hero._isWalking =true ;
         	this._hero.walkWithDirection(v);
         }
         else
         if(39 == key ){// 6
             var v =new  cc.Point(1,0);	
+            this._hero._isWalking =true ;
             this._hero.walkWithDirection(v);
         }
         else
         if(35 == key ){// 1
             var v =new  cc.Point(-1,-1);	
+            this._hero._isWalking =true ;
             this._hero.walkWithDirection(v);
         }
         else
         if(40== key ){// 2
             var v =new  cc.Point(0,-1);	
+            this._hero._isWalking =true ;
             this._hero.walkWithDirection(v);
         }
         else
         if(34 == key ){// 3
             var v =new  cc.Point(1,-1);	
+            this._hero._isWalking =true ;
             this._hero.walkWithDirection(v);
+        }
+        else
+        if(cc.KEY.z==key){
+        	this._hero.attack();
         }
     },
   // 方向
     onKeyUp:function (key) {  
-		if(this._hero._actionState ==ActionState.kActionStateWalk){
-			
-			this._hero.idle();
-		}
+    	
+    	this._hero._isWalking =false ;
+		
     },
     
     update:function(dt){
     	
     	this._hero.update(dt);//更新英雄
     	
+    	//站立
+        if(!this._hero._isWalking && this._hero._actionState ==ActionState.kActionStateWalk){
+			
+			this._hero.idle();
+		}
+    	//更新位置
     	this.updatePositions();
     },
     

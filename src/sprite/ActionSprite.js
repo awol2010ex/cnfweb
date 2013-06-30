@@ -20,7 +20,7 @@ var ActionSprite = cc.Sprite
 	_actionState :ActionState.kActionStateNone,
 	_velocity :new cc.Point(0,0),
 	_desiredPosition:new cc.Point(0,0),
-	
+	_isWalking:false,//正在行走
 	ctor : function() {
 		this._super();
 	},
@@ -63,6 +63,19 @@ var ActionSprite = cc.Sprite
 		if (this._actionState == ActionState.kActionStateWalk)
 		{
 			this._desiredPosition =new cc.Point(this.getPosition().x+this._velocity.x*dt ,this.getPosition().y+this._velocity.y*dt )
+		}
+	},
+	//攻击完
+	attackDone:function(){
+		this.idle();
+	},
+	attack:function(){
+		
+		if (this._actionState ==ActionState. kActionStateIdle ||this. _actionState ==ActionState. kActionStateAttack || this._actionState == ActionState.kActionStateWalk)
+		{
+			this.stopAllActions();
+			this.runAction(this._attackAction);
+			this._actionState =ActionState. kActionStateAttack;
 		}
 	}
 });
