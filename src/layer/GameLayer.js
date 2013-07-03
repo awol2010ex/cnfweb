@@ -4,6 +4,7 @@ var GameLayer = cc.Layer.extend({
 	_backTileMap:null,// 背景
 	_hero :null,// 主角
 	_key_list:{},
+	_actors :null ,
     init:function () {
         var bRet = false;
         if (this._super()) {
@@ -42,11 +43,25 @@ var GameLayer = cc.Layer.extend({
         var contentSize =this._backTileMap.getContentSize();// 地图大小
         var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
         this._backTileMap.setPosition( new cc.Point(winSize.width/2-contentSize.width/2,winSize.height/2-contentSize.height/2) );
+        //抗锯齿
+        var clist =this._backTileMap.getChildren();
+        if(clist && clist.length>0)
+        for(var i=0,s=clist.length;i<s;i++){
+        	var c= clist[i];
+        	c.getTexture().setAliasTexParameters();
+        }
+        
         this.addChild(this._backTileMap, -9);
     },
     // 主角
     initHero :function(){
     	var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
+    	
+    	
+    	this._actors = cc.SpriteBatchNode.create(s_ichigo_png);
+    	this._actors.getTexture().setAliasTexParameters();
+    	this.addChild(this._actors, -8);
+    	
     	this._hero = new Hero();//精灵
     	
     	this._hero.setPosition( new cc.Point(winSize.width/2,winSize.height/2) );//位置
@@ -54,7 +69,12 @@ var GameLayer = cc.Layer.extend({
     	this._hero._desiredPosition= this._hero.getPosition();
     	this._hero.setWalkSpeed(160);//步速
     	this._hero._gameLayer =this;//游戏层
-    	this.addChild(this._hero, -8);
+    	
+    	if(this._hero.getHitSprite())this._hero._hit_sprite.setPosition(this._hero.getPosition());//攻击效果
+    	
+    	
+    	this._actors.addChild(this._hero);
+    	this._actors.addChild(this._hero.getHitSprite());
     	
     	this._hero.idle();
     },
@@ -176,9 +196,11 @@ var GameLayer = cc.Layer.extend({
     	//更新位置
     	this.updatePositions();
     },
-    
+    //更新位置
     updatePositions:function(){
     	this._hero.setPosition(this._hero._desiredPosition);
+    	
+    	if(this._hero.getHitSprite())this._hero.getHitSprite().setPosition(this._hero.getPosition());//攻击效果
     }
     
 });
