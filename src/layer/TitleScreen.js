@@ -42,7 +42,9 @@ var TitleScreen = cc.Layer.extend({
 			cc.Loader.preload(g_maingame, function() {
 
 				director.replaceScene(cc.TransitionFade.create(1.2, GameScene
-						.create()));
+						.create({
+							_tileMapName :s_0000000_hotel_tmx
+				})));
 			}, this);
 		}
 	}

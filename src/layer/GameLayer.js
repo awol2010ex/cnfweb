@@ -2,9 +2,14 @@
 var GameLayer = cc.Layer
 		.extend({
 			_backTileMap : null,// 背景
+			_tileMapName: null,//地图路径
 			_hero : null,// 主角
-			_key_list : {},
-			_actors : null,
+			_key_list : {},//键盘事件
+			_actors_hero : null,
+			_actors_enemys :null ,
+			ctor :function(cfg){
+				this._tileMapName =cfg._tileMapName;//地图路径
+			},
 			init : function() {
 				var bRet = false;
 				if (this._super()) {
@@ -40,7 +45,7 @@ var GameLayer = cc.Layer
 			},
 			initBackground : function() {// 背景地图
 				// tilemap
-				this._tileMap = cc.TMXTiledMap.create(s_0000000_hotel_tmx);
+				this._tileMap = cc.TMXTiledMap.create(this._tileMapName);
 
 				var contentSize = this._tileMap.getContentSize();// 地图大小
 				var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
@@ -65,12 +70,12 @@ var GameLayer = cc.Layer
 				var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
 
 				//英雄batch
-				this._actors = cc.SpriteBatchNode.create(ActionSpriteSeries.Ichigo.texture);
-				if (this._actors.getTexture()
-						&& this._actors.getTexture().setAliasTexParameters) {
-					this._actors.getTexture().setAliasTexParameters();
+				this._actors_hero = cc.SpriteBatchNode.create(ActionSpriteSeries.Ichigo.texture);
+				if (this._actors_hero.getTexture()
+						&& this._actors_hero.getTexture().setAliasTexParameters) {
+					this._actors_hero.getTexture().setAliasTexParameters();
 				}
-				this.addChild(this._actors, -4);
+				this.addChild(this._actors_hero, -4);
 
 				this._hero = new ActionSpriteSeries.Ichigo();// 精灵
 
@@ -85,8 +90,8 @@ var GameLayer = cc.Layer
 					this._hero._hit_sprite
 							.setPosition(this._hero.getPosition());// 攻击效果
 
-				this._actors.addChild(this._hero);
-				this._actors.addChild(this._hero.getHitSprite());
+				this._actors_hero.addChild(this._hero);
+				this._actors_hero.addChild(this._hero.getHitSprite());
 
 				this._hero.idle();
 			},
@@ -273,8 +278,8 @@ var GameLayer = cc.Layer
 
 		});
 
-GameLayer.create = function() {
-	var sg = new GameLayer();
+GameLayer.create = function(cfg) {
+	var sg = new GameLayer(cfg);
 	if (sg && sg.init()) {
 		return sg;
 	}

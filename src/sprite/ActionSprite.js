@@ -102,6 +102,7 @@ var ActionSprite = cc.Sprite
 			
 			this.runAction(this._attackAction);
 
+			//¹¥»÷Ð§¹û
 			if(this._hit_sprite ){
 				
 				this._hit_sprite .runAction(this._attackHitAction );
