@@ -225,21 +225,21 @@ var GameLayer = cc.Layer
 				var tileX = Math.floor(pos.x / tileSize.width) + 1;
 				var tileY = Math
 						.floor(mapSize.height - pos.y / tileSize.height); // Because
-				// Tiled
-				// maps
-				// register
-				// in
-				// the
-				// top
-				// left
-				// corner
-				// rather
-				// than
-				// bottom
-				// left
+				// Tiled maps register in the  top  left corner rather than bottom left
 				var tileCoord = cc.p(parseInt(tileX), parseInt(tileY));
 
 				return tileCoord;
+			},
+			//释放内存
+			release:function(){
+				
+				if(this._backTileMap){
+				   //释放地图
+				   this.removeChild(this._backTileMap);
+				   this._backTileMap.release();
+				   this._backTileMap=null;
+			    }
+				this._super.release.call(this);
 			}
 
 		});
@@ -251,10 +251,4 @@ GameLayer.create = function() {
 	}
 	return null;
 };
-// 游戏场景
-GameLayer.scene = function() {
-	var scene = cc.Scene.create();
-	var layer = GameLayer.create();
-	scene.addChild(layer);
-	return scene;
-};
+

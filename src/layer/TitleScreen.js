@@ -41,8 +41,8 @@ var TitleScreen = cc.Layer.extend({
 			// Ö÷ÓÎÏ·»­Ãæ
 			cc.Loader.preload(g_maingame, function() {
 
-				director.replaceScene(cc.TransitionFade.create(1.2, GameLayer
-						.scene()));
+				director.replaceScene(cc.TransitionFade.create(1.2, GameScene
+						.create()));
 			}, this);
 		}
 	}

@@ -42,6 +42,7 @@ var MW = MW || {};
             'src/layer/TitleScreen.js',//开机
             'src/layer/GameLayer.js',//主画面
             'src/sprite/ActionSprite.js',
+            'src/scene/GameScene.js',//游戏场景
             'src/sprite/Hero.js'//主角
         ]
     };
