@@ -7,6 +7,10 @@ var ActionState ={
 	kActionStateHurt:4,
 	kActionStateKnockedOut:5
 } ;
+var ActionSpriteSeries={
+		
+} ;
+
 
 // »î¶¯¾«Áé
 var ActionSprite = cc.Sprite
@@ -113,7 +117,9 @@ var ActionSprite = cc.Sprite
 	getDesiredPosition:function(){
 		return this._desiredPosition;
 	},
-	
+	setDesiredPosition:function(p){
+		this._desiredPosition=p;
+	},
 	setCenterToBottom:function(p){
 		this._centerToBottom =p;
 	},

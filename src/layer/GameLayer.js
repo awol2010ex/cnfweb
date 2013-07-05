@@ -17,6 +17,8 @@ var GameLayer = cc.Layer
 					// 主角
 					this.initHero();
 
+					//敌人
+					this.initEnemys();
 					// schedule
 					this.scheduleUpdate();
 					bRet = true;
@@ -62,19 +64,20 @@ var GameLayer = cc.Layer
 			initHero : function() {
 				var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
 
-				this._actors = cc.SpriteBatchNode.create(s_ichigo_png);
+				//英雄batch
+				this._actors = cc.SpriteBatchNode.create(ActionSpriteSeries.Ichigo.texture);
 				if (this._actors.getTexture()
 						&& this._actors.getTexture().setAliasTexParameters) {
 					this._actors.getTexture().setAliasTexParameters();
 				}
-				this.addChild(this._actors, -8);
+				this.addChild(this._actors, -4);
 
-				this._hero = new Hero();// 精灵
+				this._hero = new ActionSpriteSeries.Ichigo();// 精灵
 
 				this._hero.setPosition(new cc.Point(winSize.width / 2,
-						winSize.height / 2 - 200));// 位置
+						winSize.height / 2 - 150));// 位置
 
-				this._hero._desiredPosition = this._hero.getPosition();
+				this._hero.setDesiredPosition( this._hero.getPosition());
 				this._hero.setWalkSpeed(160);// 步速
 				this._hero._gameLayer = this;// 游戏层
 
@@ -87,7 +90,32 @@ var GameLayer = cc.Layer
 
 				this._hero.idle();
 			},
-			// 方向
+			
+			//初始化敌人
+			initEnemys :function(){
+				var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
+
+				//敌人batch
+				this._actors_enemys = cc.SpriteBatchNode.create(ActionSpriteSeries.HollowInvasionOne.texture);
+				if (this._actors_enemys.getTexture()
+						&& this._actors_enemys.getTexture().setAliasTexParameters) {
+					this._actors_enemys.getTexture().setAliasTexParameters();
+				}
+				this.addChild(this._actors_enemys, -8);
+				
+				this._hollowInvasionOne= new ActionSpriteSeries.HollowInvasionOne();//敌人
+				this._hollowInvasionOne.setPosition(new cc.Point(winSize.width / 2+190,
+						winSize.height / 2 - 150));// 位置
+
+				this._hollowInvasionOne.setDesiredPosition( this._hero.getPosition() );
+				
+				this._actors_enemys.addChild(this._hollowInvasionOne);
+				
+				this._hollowInvasionOne.idle();//站立
+
+			},
+			
+			// 方向键
 			onKeyDown : function(key) {
 				if (36 == key) {// 7
 					this._hero._isWalking = true;
@@ -175,9 +203,8 @@ var GameLayer = cc.Layer
 				// 更新位置
 				this.updatePositions();
 			},
-			// 更新位置
-			updatePositions : function() {
-
+			//更新英雄位置
+			updateHeroPosition:function(){
 				// 移动范围
 				var posX = Math.min(this._tileMap.getPositionX()
 						+ this._tileMap.getMapSize().width
@@ -216,6 +243,11 @@ var GameLayer = cc.Layer
 								this._hero.getPosition());// 攻击效果
 
 				}
+			},
+			// 更新位置
+			updatePositions : function() {
+				//更新英雄位置
+				this.updateHeroPosition();
 			},
 			// 地图坐标
 			tileCoordForPosition : function(pos) {

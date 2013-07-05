@@ -1,4 +1,5 @@
-var Hero = ActionSprite.extend({
+//一护
+ActionSpriteSeries.Ichigo = ActionSprite.extend({
 	anim_frames_idle : [], // 站立
 	anim_frames_walk : [], // 行走
 	anim_frames_attack : [], // 攻击
@@ -104,3 +105,5 @@ var Hero = ActionSprite.extend({
 		
 	}
 });
+//贴图
+ActionSpriteSeries.Ichigo.texture = s_ichigo_png;

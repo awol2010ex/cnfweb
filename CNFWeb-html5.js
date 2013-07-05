@@ -41,9 +41,10 @@ var MW = MW || {};
             'src/Resource.js',//资源
             'src/layer/TitleScreen.js',//开机
             'src/layer/GameLayer.js',//主画面
-            'src/sprite/ActionSprite.js',
             'src/scene/GameScene.js',//游戏场景
-            'src/sprite/Hero.js'//主角
+            'src/sprite/ActionSprite.js',//活动精灵
+            'src/sprite/Ichigo.js',//主角
+            'src/sprite/HollowInvasionOne.js'//主角
         ]
     };
 
