@@ -133,5 +133,17 @@ var ActionSprite = cc.Sprite
 	
 	getCenterToSides:function(p){
 		return this._centerToSides ;
+	},
+	
+	setPosition:function(p){
+		this._super(p);
+		
+		
+		// 攻击效果位置
+		if (this.getHitSprite()){
+			this.getHitSprite().setPosition(
+					this.getPosition());// 攻击效果
+		}
 	}
+	
 });

@@ -237,10 +237,7 @@ var GameLayer = cc.Layer
 				} else {
 					// 精灵位置
 					this._hero.setPosition(cc.p(posX, posY));
-					// 攻击效果位置
-					if (this._hero.getHitSprite())
-						this._hero.getHitSprite().setPosition(
-								this._hero.getPosition());// 攻击效果
+					
 
 				}
 			},
@@ -271,7 +268,7 @@ var GameLayer = cc.Layer
 				   this._backTileMap.release();
 				   this._backTileMap=null;
 			    }
-				this._super.release.call(this);
+				this._super();
 			}
 
 		});
