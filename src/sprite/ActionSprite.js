@@ -24,6 +24,10 @@ var ActionSprite = cc.Sprite
 	_desiredPosition:new cc.Point(0,0),
 	_isWalking:false,//正在行走
 	
+	//中心距离
+	_centerToSides :35,
+	_centerToBottom :35,
+	
 	ctor : function() {
 		this._super();
 	},
@@ -101,7 +105,27 @@ var ActionSprite = cc.Sprite
 			this._actionState =ActionState. kActionStateAttack;
 		}
 	},
+	//攻击效果精灵
 	getHitSprite:function(){
 		return this._hit_sprite;
+	},
+	//将要移动的位置
+	getDesiredPosition:function(){
+		return this._desiredPosition;
+	},
+	
+	setCenterToBottom:function(p){
+		this._centerToBottom =p;
+	},
+	
+	setCenterToSides:function(p){
+		this._centerToSides =p;
+	},
+	getCenterToBottom:function(p){
+		return this._centerToBottom ;
+	},
+	
+	getCenterToSides:function(p){
+		return this._centerToSides ;
 	}
 });
