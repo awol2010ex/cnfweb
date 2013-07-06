@@ -14,6 +14,11 @@ var GameLayer = cc.Layer
 				var bRet = false;
 				if (this._super()) {
 
+					cc.SpriteFrameCache.getInstance().addSpriteFrames(s_cnf_plist);// 加载精灵
+					//英雄batch
+					this._actors = cc.SpriteBatchNode.create(s_cnf_png);
+
+					this.addChild(this._actors, -4);
 					// 控制
 					this.initControll();
 					// 背景地图
@@ -69,13 +74,11 @@ var GameLayer = cc.Layer
 			initHero : function() {
 				var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
 
-				//英雄batch
-				this._actors_hero = cc.SpriteBatchNode.create(ActionSpriteSeries.Ichigo.texture);
-				if (this._actors_hero.getTexture()
-						&& this._actors_hero.getTexture().setAliasTexParameters) {
-					this._actors_hero.getTexture().setAliasTexParameters();
+				
+				if (this._actors.getTexture()
+						&& this._actors.getTexture().setAliasTexParameters) {
+					this._actors.getTexture().setAliasTexParameters();
 				}
-				this.addChild(this._actors_hero, -4);
 
 				this._hero = new ActionSpriteSeries.Ichigo();// 精灵
 
@@ -90,8 +93,8 @@ var GameLayer = cc.Layer
 					this._hero._hit_sprite
 							.setPosition(this._hero.getPosition());// 攻击效果
 
-				this._actors_hero.addChild(this._hero);
-				this._actors_hero.addChild(this._hero.getHitSprite());
+				this._actors.addChild(this._hero);
+				this._actors.addChild(this._hero.getHitSprite());
 
 				this._hero.idle();
 			},
@@ -100,13 +103,10 @@ var GameLayer = cc.Layer
 			initEnemys :function(){
 				var winSize = cc.Director.getInstance().getWinSize();// 屏幕大小
 
-				//敌人batch
-				this._actors_enemys = cc.SpriteBatchNode.create(ActionSpriteSeries.HollowInvasionOne.texture);
-				if (this._actors_enemys.getTexture()
-						&& this._actors_enemys.getTexture().setAliasTexParameters) {
-					this._actors_enemys.getTexture().setAliasTexParameters();
+				if (this._actors.getTexture()
+						&& this._actors.getTexture().setAliasTexParameters) {
+					this._actors.getTexture().setAliasTexParameters();
 				}
-				this.addChild(this._actors_enemys, -8);
 				
 				this._hollowInvasionOne= new ActionSpriteSeries.HollowInvasionOne();//敌人
 				this._hollowInvasionOne.setPosition(new cc.Point(winSize.width / 2+190,
@@ -114,7 +114,7 @@ var GameLayer = cc.Layer
 
 				this._hollowInvasionOne.setDesiredPosition( this._hero.getPosition() );
 				
-				this._actors_enemys.addChild(this._hollowInvasionOne);
+				this._actors.addChild(this._hollowInvasionOne);
 				
 				this._hollowInvasionOne.idle();//站立
 

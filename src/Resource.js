@@ -14,12 +14,9 @@ var s_0000000_hotel_img= dirMap +"0000000_hotel.png";
 var s_0000000_hotel_tmx= dirMap +"0000000_hotel.tmx";
 
 //pvr
-//一户
-var s_ichigo_plist =dirSprite +"ichigo.plist";
-var s_ichigo_png =dirSprite +"ichigo.png";
-//虚
-var s_HollowInvasion_plist =dirSprite +"HollowInvasion.plist";
-var s_HollowInvasion_png =dirSprite +"HollowInvasion.png";
+//
+var s_cnf_plist =dirSprite +"cnf.plist";
+var s_cnf_png =dirSprite +"cnf.png";
 //开机
 var g_startgame =[
     {src:s_mugen_power_logo_img}//开机画面
@@ -32,9 +29,6 @@ var g_maingame =[
     {src:s_0000000_hotel_tmx}//地图
    , {src:s_0000000_hotel_img}//地图
    
-   , {src:s_ichigo_plist}//精灵
-   , {src:s_ichigo_png}//精灵
-   
-   , {src:s_HollowInvasion_plist}//精灵
-   , {src:s_HollowInvasion_png}//精灵
+   , {src:s_cnf_plist}//精灵
+   , {src:s_cnf_png}//精灵
 ];

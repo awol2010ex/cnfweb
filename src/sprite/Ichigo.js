@@ -8,7 +8,6 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 	ctor : function() {
 		this._super();
 
-		cc.SpriteFrameCache.getInstance().addSpriteFrames(s_ichigo_plist);// ¼ÓÔØ¾«Áé
 
 		// idle
 		for ( var i = 0; i < 83; i++) {
@@ -105,5 +104,3 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 		
 	}
 });
-//ÌùÍ¼
-ActionSpriteSeries.Ichigo.texture = s_ichigo_png;

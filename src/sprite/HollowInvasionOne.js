@@ -8,7 +8,6 @@ ActionSpriteSeries.HollowInvasionOne=ActionSprite.extend({
 	ctor : function() {
 		this._super();
 
-		cc.SpriteFrameCache.getInstance().addSpriteFrames(s_HollowInvasion_plist);// ¼ÓÔØ¾«Áé
 
 		// idle
 		for ( var i = 0; i < 5; i++) {
@@ -32,5 +31,3 @@ ActionSpriteSeries.HollowInvasionOne=ActionSprite.extend({
 		
 	}
 });
-//ÌùÍ¼
-ActionSpriteSeries.HollowInvasionOne.texture = s_HollowInvasion_png;
