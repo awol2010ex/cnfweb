@@ -29,6 +29,9 @@ var GameLayer = cc.Layer
 
 					//敌人
 					this.initEnemys();
+					
+					
+					
 					// schedule
 					this.scheduleUpdate();
 					bRet = true;
@@ -110,7 +113,7 @@ var GameLayer = cc.Layer
 				
 				this._hollowInvasionOne= new ActionSpriteSeries.HollowInvasionOne();//敌人
 				this._hollowInvasionOne.setPosition(new cc.Point(winSize.width / 2+190,
-						winSize.height / 2 - 150));// 位置
+						winSize.height / 2 - 100));// 位置
 
 				this._hollowInvasionOne.setDesiredPosition( this._hero.getPosition() );
 				
@@ -207,6 +210,9 @@ var GameLayer = cc.Layer
 				}
 				// 更新位置
 				this.updatePositions();
+				
+				//重新对batchNode排序
+				this.reorderActors();
 			},
 			//更新英雄位置
 			updateHeroPosition:function(){
@@ -274,6 +280,17 @@ var GameLayer = cc.Layer
 				   this._backTileMap=null;
 			    }
 				this._super();
+			},
+			//重新对batchNode排序
+			reorderActors:function(){
+				var clist=this._actors.getChildren();
+				if(clist && clist.length>0){
+					for(var i=0,s=clist.length;i<s;i++){
+						var sprite =clist[i];
+						this._actors.reorderChild(sprite ,this._tileMap.getMapSize().height
+								* this._tileMap.getTileSize().height-sprite.getPositionY());
+					}
+				}
 			}
 
 		});
