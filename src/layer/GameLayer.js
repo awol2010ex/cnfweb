@@ -4,9 +4,9 @@ var GameLayer = cc.Layer
 			_backTileMap : null,// 背景
 			_tileMapName: null,//地图路径
 			_hero : null,// 主角
+			_enemyList : [],// 敌人
 			_key_list : {},//键盘事件
-			_actors_hero : null,
-			_actors_enemys :null ,
+			_actors:null,
 			ctor :function(cfg){
 				this._tileMapName =cfg._tileMapName;//地图路径
 			},
@@ -111,15 +111,18 @@ var GameLayer = cc.Layer
 					this._actors.getTexture().setAliasTexParameters();
 				}
 				
-				this._hollowInvasionOne= new ActionSpriteSeries.HollowInvasionOne();//敌人
-				this._hollowInvasionOne.setPosition(new cc.Point(winSize.width / 2+190,
+				var _hollowInvasionOne= new ActionSpriteSeries.HollowInvasionOne();//敌人
+				_hollowInvasionOne.setPosition(new cc.Point(winSize.width / 2+190,
 						winSize.height / 2 - 100));// 位置
 
-				this._hollowInvasionOne.setDesiredPosition( this._hero.getPosition() );
+			    _hollowInvasionOne.setDesiredPosition( _hollowInvasionOne.getPosition() );
 				
-				this._actors.addChild(this._hollowInvasionOne);
+			    _hollowInvasionOne.setWalkSpeed(80);// 步速
+			    this._enemyList.push(_hollowInvasionOne);
+			    
+				this._actors.addChild(_hollowInvasionOne);
 				
-				this._hollowInvasionOne.idle();//站立
+				_hollowInvasionOne.idle();//站立
 
 			},
 			
@@ -197,6 +200,8 @@ var GameLayer = cc.Layer
 
 				this._hero.update(dt);// 更新英雄
 
+				//更新敌人
+				this.updateEnemys(dt);
 				// 站立
 				if (!this._hero._isWalking
 						&& this._hero._actionState == ActionState.kActionStateWalk) {
@@ -213,6 +218,33 @@ var GameLayer = cc.Layer
 				
 				//重新对batchNode排序
 				this.reorderActors();
+			},
+			//更新敌人
+			updateEnemys:function(dt){
+				if(this._enemyList && this._enemyList.length>0){
+					for(var i=0,s=this._enemyList.length;i<s;i++){
+						var enemy =this._enemyList [i];
+						
+						enemy.update(dt);
+						
+						if(new Date().getTime()<=enemy.getNextDecisionTime()){
+							continue;
+						}
+						
+						var random  =Math.ceil(Math.random()*2)%2 ;
+						
+						if(random ==0){
+							var moveDirection  =cc.pNormalize( cc.pSub(this._hero.getPosition(), enemy.getPosition())  );
+							
+							//向着主角走
+							enemy.walkWithDirection(moveDirection);
+						}else{
+							enemy.idle();//站立
+						}
+						//下一次行为时间
+						enemy.setNextDecisionTime(new Date().getTime()+1000*Math.random()*3);
+					}
+				} 
 			},
 			//更新英雄位置
 			updateHeroPosition:function(){
@@ -252,10 +284,55 @@ var GameLayer = cc.Layer
 
 				}
 			},
+			//更新敌人位置
+			updateEnemyPosition:function(){
+				if(this._enemyList && this._enemyList.length>0){
+					for(var i=0,s=this._enemyList.length;i<s;i++){
+						var enemy =this._enemyList [i];
+						// 移动范围
+						var posX = Math.min(this._tileMap.getPositionX()
+								+ this._tileMap.getMapSize().width
+								* this._tileMap.getTileSize().width
+								- this._hero.getCenterToSides(), Math.max(this._tileMap
+								.getPositionX()
+								+ enemy.getCenterToSides(), enemy
+								.getDesiredPosition().x));
+						var posY =
+
+						Math.min(this._tileMap.getPositionY()
+								+ this._tileMap.getMapSize().height
+								* this._tileMap.getTileSize().height
+								- enemy.getCenterToBottom(), Math.max(
+								this._tileMap.getPositionY()
+										+ enemy.getCenterToBottom(), enemy
+										.getDesiredPosition().y));
+
+						//
+						// 地图层
+						var wall = this._tileMap.getLayer("wall");
+						/* 获得当前主角在地图中的格子位置 */
+						var tiledPos = this.tileCoordForPosition(cc.p(posX
+								- this._tileMap.getPositionX(), posY
+								- this._tileMap.getPositionY()));
+						/* 获取地图格子的唯一标识 */
+						var tiledGid = wall.getTileGIDAt(tiledPos);
+
+						if (tiledGid != 0) {
+						} else {
+							// 精灵位置
+							enemy.setPosition(cc.p(posX, posY));
+							
+
+						}
+					}
+				} 
+			},
 			// 更新位置
 			updatePositions : function() {
 				//更新英雄位置
 				this.updateHeroPosition();
+				//更新敌人位置
+				this.updateEnemyPosition();
 			},
 			// 地图坐标
 			tileCoordForPosition : function(pos) {

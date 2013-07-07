@@ -1,5 +1,5 @@
 //虚
-ActionSpriteSeries.HollowInvasionOne=ActionSprite.extend({
+ActionSpriteSeries.HollowInvasionOne=Enemy.extend({
 	anim_frames_idle : [], // 站立
 	anim_frames_walk : [], // 行走
 	anim_frames_attack : [], // 攻击
@@ -15,7 +15,7 @@ ActionSpriteSeries.HollowInvasionOne=ActionSprite.extend({
 			var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(
 					"HollowInvasionOne_idle" + i + ".png");
 
-			//frame.setOffset(new cc.Point(109, 111));
+			//frame.setOffset(new cc.Point(-109, 111));
 
 			this.anim_frames_idle.push(frame);
 		}
@@ -25,9 +25,32 @@ ActionSpriteSeries.HollowInvasionOne=ActionSprite.extend({
 
 		this._idleAction = cc.RepeatForever.create(cc.Animate
 				.create(idle_animation));
+		
+		
+		
+		// walk
+		for ( var i = 0; i < 5; i++) {
+
+			var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(
+					"HollowInvasionOne_walk" + i + ".png");
+
+			////frame.setOffset(new cc.Point(-71, 94));
+
+			this.anim_frames_walk.push(frame);
+		}
+
+		var walk_animation = cc.Animation.create(this.anim_frames_walk,
+				1.0 / 6.0);
+
+		this._walkAction = cc.RepeatForever.create(cc.Animate
+				.create(walk_animation));
+		
 		// 初始帧
 		this.initWithSpriteFrame(this.anim_frames_idle[0]);
 		
 		
+	},
+	getCharacterId:function(){
+		return "HollowInvasionOne";
 	}
 });

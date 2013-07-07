@@ -102,5 +102,8 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 		this._hit_sprite = cc.Sprite.createWithSpriteFrame(this.emptyFrame );// ¹¥»÷Ð§¹û³õÊ¼¿Õ°×
 		
 		
+	},
+	getCharacterId:function(){
+		return "Ichigo";
 	}
 });

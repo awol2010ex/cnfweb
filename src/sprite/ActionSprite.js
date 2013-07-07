@@ -50,6 +50,7 @@ var ActionSprite = cc.Sprite
 	},
 	//行走
 	walkWithDirection:function(direction){
+		
 		if (this._actionState ==  ActionState.kActionStateIdle)//执行攻击动画
 		{
 			this.stopAllActions();
@@ -62,6 +63,7 @@ var ActionSprite = cc.Sprite
 		if (this._actionState == ActionState.kActionStateWalk)//行走移动位置
 		{
 			this._velocity = new cc.Point(direction.x * this._walkSpeed, direction.y * this._walkSpeed);
+			
 			if (this._velocity.x>= 0)
 			{
 				this.setScaleX(1.0);
@@ -85,6 +87,8 @@ var ActionSprite = cc.Sprite
 		if (this._actionState == ActionState.kActionStateWalk)
 		{
 			this._desiredPosition =new cc.Point(this.getPosition().x+this._velocity.x*dt ,this.getPosition().y+this._velocity.y*dt )
+			
+			
 		}
 	},
 	//攻击完
