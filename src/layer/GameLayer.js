@@ -23,6 +23,8 @@ var GameLayer = cc.Layer
 					this.initControll();
 					// 背景地图
 					this.initBackground();
+					//初始化传送门
+					this.initDoors();
 
 					// 主角
 					this.initHero();
@@ -122,6 +124,19 @@ var GameLayer = cc.Layer
 			    
 				this._actors.addChild(_hollowInvasionOne);
 				
+				
+				var _hollowInvasionTwo= new ActionSpriteSeries.HollowInvasionOne();//敌人
+				_hollowInvasionTwo.setPosition(new cc.Point(winSize.width / 2+250,
+						winSize.height / 2 - 100));// 位置
+
+				_hollowInvasionTwo.setDesiredPosition( _hollowInvasionTwo.getPosition() );
+				
+				_hollowInvasionTwo.setWalkSpeed(80);// 步速
+			    this._enemyList.push(_hollowInvasionTwo);
+			    
+				this._actors.addChild(_hollowInvasionTwo);
+				
+				_hollowInvasionTwo.idle();
 				_hollowInvasionOne.idle();//站立
 
 			},
@@ -366,6 +381,26 @@ var GameLayer = cc.Layer
 						var sprite =clist[i];
 						this._actors.reorderChild(sprite ,this._tileMap.getMapSize().height
 								* this._tileMap.getTileSize().height-sprite.getPositionY());
+					}
+				}
+			},
+			//初始化传送门
+			initDoors :function(){
+				var mapSize = this._tileMap.getMapSize();
+				var group =this._tileMap.getObjectGroup("objects");
+				var objects =group.getObjects();
+				if(objects &&  objects.length>0){
+					for(var i=0,s=objects.length;i<s;i++){
+						var o =objects[i];
+						
+						if(o.type=='Door'){
+							
+							var frame =cc.SpriteFrameCache.getInstance().getSpriteFrame("0ACT1 2.png")
+							var door =cc.Sprite.createWithTexture(frame.getTexture(),  new cc.Rect(0,0,150,200));
+							
+							door.setPosition(cc.p(o.x+o.width/2,o.y+200));
+							this.addChild(door,7);
+						}
 					}
 				}
 			}
