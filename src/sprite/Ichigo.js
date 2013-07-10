@@ -29,12 +29,12 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 		this.initWithSpriteFrame(this.anim_frames_idle[0]);
 
 		// walk
-		for ( var i = 0; i < 8; i++) {
+		for ( var i = 0; i < 6; i++) {
 			var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(
-					"ichigo_walk" + i + ".png")
+					"ichigo_run" + i + ".png")
 
-			//frame.setOffset(new cc.Point(-30, 100));
-		    frame.setOffset(new cc.Point(1, -1));
+			//frame.setOffset(new cc.Point(-42, 88));
+		    frame.setOffset(new cc.Point(-11, -13));
 
 			this.anim_frames_walk.push(frame);
 		}

@@ -394,12 +394,10 @@ var GameLayer = cc.Layer
 						var o =objects[i];
 						
 						if(o.type=='Door'){
-							
-							var frame =cc.SpriteFrameCache.getInstance().getSpriteFrame("0ACT1 2.png")
-							var door =cc.Sprite.createWithTexture(frame.getTexture(),  new cc.Rect(0,0,150,200));
-							
-							door.setPosition(cc.p(o.x+o.width/2,o.y+200));
-							this.addChild(door,7);
+							var door =cc.Sprite.createWithSpriteFrameName("0ACT1 2.png");
+							door.setTextureRect(new cc.Rect(0,0,150,200),true);
+							door.setPosition(o.x+this._tileMap.getPositionX()+o.width/2,o.y+this._tileMap.getPositionY()-o.height+100);
+							this.addChild(door);
 						}
 					}
 				}
