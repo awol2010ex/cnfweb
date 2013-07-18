@@ -114,6 +114,17 @@ var ActionSprite = cc.Sprite
 			this._actionState =ActionState. kActionStateAttack;
 		}
 	},
+	//受伤
+	hurtWithDamage:function(damage){
+		if(this._actionState != ActionState.kActionStateKnockedOut){//还没死
+			this.stopAllActions();
+			this.runAction(this._hurtAction);
+			this._actionState = ActionState.kActionStateHurt;
+		}
+		
+	},
+	
+	
 	//攻击效果精灵
 	getHitSprite:function(){
 		return this._hit_sprite;

@@ -1,10 +1,10 @@
 //虚
 ActionSpriteSeries.HollowInvasionOne=Enemy.extend({
-	anim_frames_idle : [], // վ��
-	anim_frames_walk : [], // ����
-	anim_frames_attack : [], // ����
-	anim_frames_attack_hit : [], // ����Ч��
-
+	anim_frames_idle : [], 
+	anim_frames_walk : [], 
+	anim_frames_attack : [],
+	anim_frames_attack_hit : [], 
+	anim_frames_hurt : [],
 	ctor : function() {
 		this._super();
 
@@ -46,7 +46,21 @@ ActionSpriteSeries.HollowInvasionOne=Enemy.extend({
 				.create(walk_animation));
 		this.initWithSpriteFrame(this.anim_frames_idle[0]);
 		
-		
+		// hurt
+		for ( var i = 0; i < 4; i++) {
+
+			var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(
+					"HollowInvasionOne_hurt" + i + ".png");
+
+			////frame.setOffset(new cc.Point(-71, 94));
+
+			this.anim_frames_hurt.push(frame);
+		}
+		var hurt_animation = cc.Animation.create(this.anim_frames_hurt,
+				1.0 / 12.0);
+		var callFunc = cc.CallFunc.create(this.attackDone, this, null);// 攻击后站立
+		this._hurtAction = cc.Sequence.create(cc.Animate
+				.create(hurt_animation), callFunc);
 	},
 	getCharacterId:function(){
 		return "HollowInvasionOne";

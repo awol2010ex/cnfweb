@@ -25,7 +25,7 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 
 		this._idleAction = cc.RepeatForever.create(cc.Animate
 				.create(idle_animation));
-		// ��ʼ֡
+		//初始帧
 		this.initWithSpriteFrame(this.anim_frames_idle[0]);
 
 		// walk
@@ -57,7 +57,7 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 
 		var attack_animation = cc.Animation.create(this.anim_frames_attack,
 				1.0 / 12.0);
-		var callFunc = cc.CallFunc.create(this.attackDone, this, null);// ������վ��
+		var callFunc = cc.CallFunc.create(this.attackDone, this, null);// 攻击后站立
 		this._attackAction = cc.Sequence.create(cc.Animate
 				.create(attack_animation), callFunc);
 

@@ -169,6 +169,9 @@ var GameLayer = cc.Layer
 					this._key_list[key] = 1;
 				} else if (cc.KEY.z == key) {
 					this._hero.attack();
+					
+					this._enemyList[0].hurtWithDamage(100);
+					
 				}
 			},
 			// 方向
@@ -395,7 +398,6 @@ var GameLayer = cc.Layer
 						
 						if(o.type=='Door'){
 							var door =cc.Sprite.createWithSpriteFrameName("0ACT1 2.png");
-							door.setTextureRect(new cc.Rect(0,0,150,200),true);
 							door.setPosition(o.x+this._tileMap.getPositionX()+o.width/2,o.y+this._tileMap.getPositionY()-o.height+100);
 							this.addChild(door);
 						}
