@@ -1,9 +1,9 @@
-//ÓÎÏ·³¡¾°
+//æ¸¸æˆåœºæ™¯
 var GameScene= cc.Scene
 		.extend({
 			_tileMapName :null,
 		    ctor :function(config){
-		    	this._tileMapName =config._tileMapName;//µØÍ¼
+		    	this._tileMapName =config._tileMapName;//åœ°å›¾
 		    },
 			init : function() {
 				var bRet = false;
@@ -13,7 +13,7 @@ var GameScene= cc.Scene
 							
 							_tileMapName:this._tileMapName	
 					};
-					//ÓÎÏ·²ã
+					//æ¸¸æˆå±‚
 					var layer = GameLayer.create(cfg);
 					this.addChild(layer);
 					bRet = true;

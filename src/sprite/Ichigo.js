@@ -1,9 +1,9 @@
-//Ò»»¤
+//ä¸€æŠ¤
 ActionSpriteSeries.Ichigo = ActionSprite.extend({
-	anim_frames_idle : [], // Õ¾Á¢
-	anim_frames_walk : [], // ÐÐ×ß
-	anim_frames_attack : [], // ¹¥»÷
-	anim_frames_attack_hit : [], // ¹¥»÷Ð§¹û
+	anim_frames_idle : [], // Õ¾ï¿½ï¿½
+	anim_frames_walk : [], // ï¿½ï¿½ï¿½ï¿½
+	anim_frames_attack : [], // ï¿½ï¿½ï¿½ï¿½
+	anim_frames_attack_hit : [], // ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 
 	ctor : function() {
 		this._super();
@@ -25,7 +25,7 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 
 		this._idleAction = cc.RepeatForever.create(cc.Animate
 				.create(idle_animation));
-		// ³õÊ¼Ö¡
+		// ï¿½ï¿½Ê¼Ö¡
 		this.initWithSpriteFrame(this.anim_frames_idle[0]);
 
 		// walk
@@ -57,11 +57,11 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 
 		var attack_animation = cc.Animation.create(this.anim_frames_attack,
 				1.0 / 12.0);
-		var callFunc = cc.CallFunc.create(this.attackDone, this, null);// ¹¥»÷ÍêÕ¾Á¢
+		var callFunc = cc.CallFunc.create(this.attackDone, this, null);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½
 		this._attackAction = cc.Sequence.create(cc.Animate
 				.create(attack_animation), callFunc);
 
-		// ¹¥»÷Ð§¹û
+	
 		// attack
 		for ( var i = 0; i < 5; i++) {
 			var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(
@@ -84,23 +84,20 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 
 			this.anim_frames_attack_hit.push(frame);
 		}
-		
-		//¹¥»÷Ð§¹û ³õÊ¼Ö¡
 		this.emptyFrame = cc.SpriteFrameCache.getInstance().getSpriteFrame(
 				"ichigo_attack_one_hit0.png");
 		this.emptyFrame .setRect(new cc.Rect(0, 0, 0, 0));
 		
 		
 		this.anim_frames_attack_hit.push(this.emptyFrame );
-		//¹¥»÷Ð§¹û
+
 		var attack_hit_animation = cc.Animation.create(
 				this.anim_frames_attack_hit, 1.0 / 12.0);
 		this._attackHitAction = cc.Sequence.create( cc.DelayTime.create(2.0 / 12.0),cc.Animate
 				.create(attack_hit_animation));
 
 		
-		this._hit_sprite = cc.Sprite.createWithSpriteFrame(this.emptyFrame );// ¹¥»÷Ð§¹û³õÊ¼¿Õ°×
-		
+		this._hit_sprite = cc.Sprite.createWithSpriteFrame(this.emptyFrame );
 		
 	},
 	getCharacterId:function(){

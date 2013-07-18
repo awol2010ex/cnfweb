@@ -1,9 +1,9 @@
-//Ðé
+//è™š
 ActionSpriteSeries.HollowInvasionOne=Enemy.extend({
-	anim_frames_idle : [], // Õ¾Á¢
-	anim_frames_walk : [], // ÐÐ×ß
-	anim_frames_attack : [], // ¹¥»÷
-	anim_frames_attack_hit : [], // ¹¥»÷Ð§¹û
+	anim_frames_idle : [], // Õ¾ï¿½ï¿½
+	anim_frames_walk : [], // ï¿½ï¿½ï¿½ï¿½
+	anim_frames_attack : [], // ï¿½ï¿½ï¿½ï¿½
+	anim_frames_attack_hit : [], // ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 
 	ctor : function() {
 		this._super();
@@ -44,8 +44,6 @@ ActionSpriteSeries.HollowInvasionOne=Enemy.extend({
 
 		this._walkAction = cc.RepeatForever.create(cc.Animate
 				.create(walk_animation));
-		
-		// ³õÊ¼Ö¡
 		this.initWithSpriteFrame(this.anim_frames_idle[0]);
 		
 		

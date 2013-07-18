@@ -1,35 +1,35 @@
-//ÓÎÏ·Í¼²ã
+//æ¸¸æˆå›¾å±‚
 var GameLayer = cc.Layer
 		.extend({
-			_backTileMap : null,// ±³¾°
-			_tileMapName: null,//µØÍ¼Â·¾¶
-			_hero : null,// Ö÷½Ç
-			_enemyList : [],// µĞÈË
-			_key_list : {},//¼üÅÌÊÂ¼ş
+			_backTileMap : null,// èƒŒæ™¯
+			_tileMapName: null,//åœ°å›¾è·¯å¾„
+			_hero : null,// ä¸»è§’
+			_enemyList : [],// æ•Œäºº
+			_key_list : {},//é”®ç›˜äº‹ä»¶
 			_actors:null,
 			ctor :function(cfg){
-				this._tileMapName =cfg._tileMapName;//µØÍ¼Â·¾¶
+				this._tileMapName =cfg._tileMapName;//åœ°å›¾è·¯å¾„
 			},
 			init : function() {
 				var bRet = false;
 				if (this._super()) {
 
-					cc.SpriteFrameCache.getInstance().addSpriteFrames(s_cnf_plist);// ¼ÓÔØ¾«Áé
-					//Ó¢ĞÛbatch
+					cc.SpriteFrameCache.getInstance().addSpriteFrames(s_cnf_plist);// åŠ è½½ç²¾çµ
+					//è‹±é›„batch
 					this._actors = cc.SpriteBatchNode.create(s_cnf_png);
 
 					this.addChild(this._actors, -4);
-					// ¿ØÖÆ
+					// æ§åˆ¶
 					this.initControll();
-					// ±³¾°µØÍ¼
+					// èƒŒæ™¯åœ°å›¾
 					this.initBackground();
-					//³õÊ¼»¯´«ËÍÃÅ
+					//åˆå§‹åŒ–ä¼ é€é—¨
 					this.initDoors();
 
-					// Ö÷½Ç
+					// ä¸»è§’
 					this.initHero();
 
-					//µĞÈË
+					//æ•Œäºº
 					this.initEnemys();
 					
 					
@@ -53,16 +53,16 @@ var GameLayer = cc.Layer
 				if ('touches' in sys.capabilities)
 					this.setTouchEnabled(true);
 			},
-			initBackground : function() {// ±³¾°µØÍ¼
+			initBackground : function() {// èƒŒæ™¯åœ°å›¾
 				// tilemap
 				this._tileMap = cc.TMXTiledMap.create(this._tileMapName);
 
-				var contentSize = this._tileMap.getContentSize();// µØÍ¼´óĞ¡
-				var winSize = cc.Director.getInstance().getWinSize();// ÆÁÄ»´óĞ¡
+				var contentSize = this._tileMap.getContentSize();// åœ°å›¾å¤§å°
+				var winSize = cc.Director.getInstance().getWinSize();// å±å¹•å¤§å°
 				this._tileMap.setPosition(new cc.Point(winSize.width / 2
 						- contentSize.width / 2, winSize.height / 2
 						- contentSize.height / 2));
-				// ¿¹¾â³İ
+				// æŠ—é”¯é½¿
 				var clist = this._tileMap.getChildren();
 				if (clist && clist.length > 0)
 					for ( var i = 0, s = clist.length; i < s; i++) {
@@ -75,9 +75,9 @@ var GameLayer = cc.Layer
 
 				this.addChild(this._tileMap, -9);
 			},
-			// Ö÷½Ç
+			// ä¸»è§’
 			initHero : function() {
-				var winSize = cc.Director.getInstance().getWinSize();// ÆÁÄ»´óĞ¡
+				var winSize = cc.Director.getInstance().getWinSize();// å±å¹•å¤§å°
 
 				
 				if (this._actors.getTexture()
@@ -85,18 +85,18 @@ var GameLayer = cc.Layer
 					this._actors.getTexture().setAliasTexParameters();
 				}
 
-				this._hero = new ActionSpriteSeries.Ichigo();// ¾«Áé
+				this._hero = new ActionSpriteSeries.Ichigo();// ç²¾çµ
 
 				this._hero.setPosition(new cc.Point(winSize.width / 2,
-						winSize.height / 2 - 150));// Î»ÖÃ
+						winSize.height / 2 - 150));// ä½ç½®
 
 				this._hero.setDesiredPosition( this._hero.getPosition());
-				this._hero.setWalkSpeed(160);// ²½ËÙ
-				this._hero._gameLayer = this;// ÓÎÏ·²ã
+				this._hero.setWalkSpeed(160);// æ­¥é€Ÿ
+				this._hero._gameLayer = this;// æ¸¸æˆå±‚
 
 				if (this._hero.getHitSprite())
 					this._hero._hit_sprite
-							.setPosition(this._hero.getPosition());// ¹¥»÷Ğ§¹û
+							.setPosition(this._hero.getPosition());// æ”»å‡»æ•ˆæœ
 
 				this._actors.addChild(this._hero);
 				this._actors.addChild(this._hero.getHitSprite());
@@ -104,44 +104,44 @@ var GameLayer = cc.Layer
 				this._hero.idle();
 			},
 			
-			//³õÊ¼»¯µĞÈË
+			//åˆå§‹åŒ–æ•Œäºº
 			initEnemys :function(){
-				var winSize = cc.Director.getInstance().getWinSize();// ÆÁÄ»´óĞ¡
+				var winSize = cc.Director.getInstance().getWinSize();// å±å¹•å¤§å°
 
 				if (this._actors.getTexture()
 						&& this._actors.getTexture().setAliasTexParameters) {
 					this._actors.getTexture().setAliasTexParameters();
 				}
 				
-				var _hollowInvasionOne= new ActionSpriteSeries.HollowInvasionOne();//µĞÈË
+				var _hollowInvasionOne= new ActionSpriteSeries.HollowInvasionOne();//æ•Œäºº
 				_hollowInvasionOne.setPosition(new cc.Point(winSize.width / 2+190,
-						winSize.height / 2 - 100));// Î»ÖÃ
+						winSize.height / 2 - 100));// ä½ç½®
 
 			    _hollowInvasionOne.setDesiredPosition( _hollowInvasionOne.getPosition() );
 				
-			    _hollowInvasionOne.setWalkSpeed(80);// ²½ËÙ
+			    _hollowInvasionOne.setWalkSpeed(80);// æ­¥é€Ÿ
 			    this._enemyList.push(_hollowInvasionOne);
 			    
 				this._actors.addChild(_hollowInvasionOne);
 				
 				
-				var _hollowInvasionTwo= new ActionSpriteSeries.HollowInvasionOne();//µĞÈË
+				var _hollowInvasionTwo= new ActionSpriteSeries.HollowInvasionOne();//æ•Œäºº
 				_hollowInvasionTwo.setPosition(new cc.Point(winSize.width / 2+250,
-						winSize.height / 2 - 100));// Î»ÖÃ
+						winSize.height / 2 - 100));// ä½ç½®
 
 				_hollowInvasionTwo.setDesiredPosition( _hollowInvasionTwo.getPosition() );
 				
-				_hollowInvasionTwo.setWalkSpeed(80);// ²½ËÙ
+				_hollowInvasionTwo.setWalkSpeed(80);// æ­¥é€Ÿ
 			    this._enemyList.push(_hollowInvasionTwo);
 			    
 				this._actors.addChild(_hollowInvasionTwo);
 				
 				_hollowInvasionTwo.idle();
-				_hollowInvasionOne.idle();//Õ¾Á¢
+				_hollowInvasionOne.idle();//ç«™ç«‹
 
 			},
 			
-			// ·½Ïò¼ü
+			// æ–¹å‘é”®
 			onKeyDown : function(key) {
 				if (36 == key) {// 7
 					this._hero._isWalking = true;
@@ -171,15 +171,15 @@ var GameLayer = cc.Layer
 					this._hero.attack();
 				}
 			},
-			// ·½Ïò
+			// æ–¹å‘
 			onKeyUp : function(key) {
-				this._key_list[key] = 0;// ËÉ¿ª
+				this._key_list[key] = 0;// æ¾å¼€
 				var d = this.getDirection();
 				if (d.x == 0 && d.y == 0) {
 					this._hero._isWalking = false;
 				}
 			},
-			// È¡µÃ·½Ïò
+			// å–å¾—æ–¹å‘
 			getDirection : function() {
 				var x = 0;
 				var y = 0;
@@ -213,28 +213,28 @@ var GameLayer = cc.Layer
 			},
 			update : function(dt) {
 
-				this._hero.update(dt);// ¸üĞÂÓ¢ĞÛ
+				this._hero.update(dt);// æ›´æ–°è‹±é›„
 
-				//¸üĞÂµĞÈË
+				//æ›´æ–°æ•Œäºº
 				this.updateEnemys(dt);
-				// Õ¾Á¢
+				// ç«™ç«‹
 				if (!this._hero._isWalking
 						&& this._hero._actionState == ActionState.kActionStateWalk) {
 
 					this._hero.idle();
 				} else
-				// ĞĞ×ß
+				// è¡Œèµ°
 				if (this._hero._isWalking) {
 
 					this._hero.walkWithDirection(this.getDirection());
 				}
-				// ¸üĞÂÎ»ÖÃ
+				// æ›´æ–°ä½ç½®
 				this.updatePositions();
 				
-				//ÖØĞÂ¶ÔbatchNodeÅÅĞò
+				//é‡æ–°å¯¹batchNodeæ’åº
 				this.reorderActors();
 			},
-			//¸üĞÂµĞÈË
+			//æ›´æ–°æ•Œäºº
 			updateEnemys:function(dt){
 				if(this._enemyList && this._enemyList.length>0){
 					for(var i=0,s=this._enemyList.length;i<s;i++){
@@ -251,19 +251,19 @@ var GameLayer = cc.Layer
 						if(random ==0){
 							var moveDirection  =cc.pNormalize( cc.pSub(this._hero.getPosition(), enemy.getPosition())  );
 							
-							//Ïò×ÅÖ÷½Ç×ß
+							//å‘ç€ä¸»è§’èµ°
 							enemy.walkWithDirection(moveDirection);
 						}else{
-							enemy.idle();//Õ¾Á¢
+							enemy.idle();//ç«™ç«‹
 						}
-						//ÏÂÒ»´ÎĞĞÎªÊ±¼ä
+						//ä¸‹ä¸€æ¬¡è¡Œä¸ºæ—¶é—´
 						enemy.setNextDecisionTime(new Date().getTime()+1000*Math.random()*3);
 					}
 				} 
 			},
-			//¸üĞÂÓ¢ĞÛÎ»ÖÃ
+			//æ›´æ–°è‹±é›„ä½ç½®
 			updateHeroPosition:function(){
-				// ÒÆ¶¯·¶Î§
+				// ç§»åŠ¨èŒƒå›´
 				var posX = Math.min(this._tileMap.getPositionX()
 						+ this._tileMap.getMapSize().width
 						* this._tileMap.getTileSize().width
@@ -282,29 +282,29 @@ var GameLayer = cc.Layer
 								.getDesiredPosition().y));
 
 				//
-				// µØÍ¼²ã
+				// åœ°å›¾å±‚
 				var wall = this._tileMap.getLayer("wall");
-				/* »ñµÃµ±Ç°Ö÷½ÇÔÚµØÍ¼ÖĞµÄ¸ñ×ÓÎ»ÖÃ */
+				/* è·å¾—å½“å‰ä¸»è§’åœ¨åœ°å›¾ä¸­çš„æ ¼å­ä½ç½® */
 				var tiledPos = this.tileCoordForPosition(cc.p(posX
 						- this._tileMap.getPositionX(), posY
 						- this._tileMap.getPositionY()));
-				/* »ñÈ¡µØÍ¼¸ñ×ÓµÄÎ¨Ò»±êÊ¶ */
+				/* è·å–åœ°å›¾æ ¼å­çš„å”¯ä¸€æ ‡è¯† */
 				var tiledGid = wall.getTileGIDAt(tiledPos);
 
 				if (tiledGid != 0) {
 				} else {
-					// ¾«ÁéÎ»ÖÃ
+					// ç²¾çµä½ç½®
 					this._hero.setPosition(cc.p(posX, posY));
 					
 
 				}
 			},
-			//¸üĞÂµĞÈËÎ»ÖÃ
+			//æ›´æ–°æ•Œäººä½ç½®
 			updateEnemyPosition:function(){
 				if(this._enemyList && this._enemyList.length>0){
 					for(var i=0,s=this._enemyList.length;i<s;i++){
 						var enemy =this._enemyList [i];
-						// ÒÆ¶¯·¶Î§
+						// ç§»åŠ¨èŒƒå›´
 						var posX = Math.min(this._tileMap.getPositionX()
 								+ this._tileMap.getMapSize().width
 								* this._tileMap.getTileSize().width
@@ -323,18 +323,18 @@ var GameLayer = cc.Layer
 										.getDesiredPosition().y));
 
 						//
-						// µØÍ¼²ã
+						// åœ°å›¾å±‚
 						var wall = this._tileMap.getLayer("wall");
-						/* »ñµÃµ±Ç°Ö÷½ÇÔÚµØÍ¼ÖĞµÄ¸ñ×ÓÎ»ÖÃ */
+						/* è·å¾—å½“å‰ä¸»è§’åœ¨åœ°å›¾ä¸­çš„æ ¼å­ä½ç½® */
 						var tiledPos = this.tileCoordForPosition(cc.p(posX
 								- this._tileMap.getPositionX(), posY
 								- this._tileMap.getPositionY()));
-						/* »ñÈ¡µØÍ¼¸ñ×ÓµÄÎ¨Ò»±êÊ¶ */
+						/* è·å–åœ°å›¾æ ¼å­çš„å”¯ä¸€æ ‡è¯† */
 						var tiledGid = wall.getTileGIDAt(tiledPos);
 
 						if (tiledGid != 0) {
 						} else {
-							// ¾«ÁéÎ»ÖÃ
+							// ç²¾çµä½ç½®
 							enemy.setPosition(cc.p(posX, posY));
 							
 
@@ -342,14 +342,14 @@ var GameLayer = cc.Layer
 					}
 				} 
 			},
-			// ¸üĞÂÎ»ÖÃ
+			// æ›´æ–°ä½ç½®
 			updatePositions : function() {
-				//¸üĞÂÓ¢ĞÛÎ»ÖÃ
+				//æ›´æ–°è‹±é›„ä½ç½®
 				this.updateHeroPosition();
-				//¸üĞÂµĞÈËÎ»ÖÃ
+				//æ›´æ–°æ•Œäººä½ç½®
 				this.updateEnemyPosition();
 			},
-			// µØÍ¼×ø±ê
+			// åœ°å›¾åæ ‡
 			tileCoordForPosition : function(pos) {
 				var mapSize = this._tileMap.getMapSize();
 				var tileSize = this._tileMap.getTileSize();
@@ -362,18 +362,18 @@ var GameLayer = cc.Layer
 
 				return tileCoord;
 			},
-			//ÊÍ·ÅÄÚ´æ
+			//é‡Šæ”¾å†…å­˜
 			release:function(){
 				
 				if(this._backTileMap){
-				   //ÊÍ·ÅµØÍ¼
+				   //é‡Šæ”¾åœ°å›¾
 				   this.removeChild(this._backTileMap);
 				   this._backTileMap.release();
 				   this._backTileMap=null;
 			    }
 				this._super();
 			},
-			//ÖØĞÂ¶ÔbatchNodeÅÅĞò
+			//é‡æ–°å¯¹batchNodeæ’åº
 			reorderActors:function(){
 				var clist=this._actors.getChildren();
 				if(clist && clist.length>0){
@@ -384,7 +384,7 @@ var GameLayer = cc.Layer
 					}
 				}
 			},
-			//³õÊ¼»¯´«ËÍÃÅ
+			//åˆå§‹åŒ–ä¼ é€é—¨
 			initDoors :function(){
 				var mapSize = this._tileMap.getMapSize();
 				var group =this._tileMap.getObjectGroup("objects");

@@ -1,6 +1,6 @@
-//敌人
+//鏁屼汉
 var Enemy =ActionSprite.extend({
-	_nextDecisionTime :null,//下一次决定行动的时间
+	_nextDecisionTime :null,//锟斤拷一锟轿撅拷锟斤拷锟叫讹拷锟斤拷时锟斤拷
 	ctor : function() {
 		this._super();
 		

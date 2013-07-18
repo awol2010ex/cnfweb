@@ -1,12 +1,12 @@
 var dirImg = "res/images/";
-var dirMusic = "res/Music/";//ÒôÀÖ
-var dirMap = "res/map/";//µØÍ¼
-var dirSprite = "res/sprite/";//¾«Áé
-var dirScreen="res/screen/";//»­Ãæ
-var dirMenu="res/menu/";//²Ëµ¥
+var dirMusic = "res/Music/";//é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+var dirMap = "res/map/";//é”Ÿæ–¤æ‹·å›¾
+var dirSprite = "res/sprite/";//é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+var dirScreen="res/screen/";//é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+var dirMenu="res/menu/";//é”Ÿå‰¿ç¢‰æ‹·
 
 //img
-var s_mugen_power_logo_img = dirImg +"mugen-power-logo.jpg";
+var s_startup_img =dirImg +"startup.png";
 var s_0000000_hotel_img= dirMap +"0000000_hotel.png";
 
 
@@ -17,18 +17,18 @@ var s_0000000_hotel_tmx= dirMap +"0000000_hotel.tmx";
 //
 var s_cnf_plist =dirSprite +"cnf.plist";
 var s_cnf_png =dirSprite +"cnf.png";
-//¿ª»ú
+//å¼€æœºç”»é¢
 var g_startgame =[
-    {src:s_mugen_power_logo_img}//¿ª»ú»­Ãæ
+    {src:s_startup_img}
 ];
 
 
 
 
 var g_maingame =[
-    {src:s_0000000_hotel_tmx}//µØÍ¼
-   , {src:s_0000000_hotel_img}//µØÍ¼
+    {src:s_0000000_hotel_tmx}//åœ°å›¾
+   , {src:s_0000000_hotel_img}//
    
-   , {src:s_cnf_plist}//¾«Áé
-   , {src:s_cnf_png}//¾«Áé
+   , {src:s_cnf_plist}//ç²¾çµ
+   , {src:s_cnf_png}//
 ];

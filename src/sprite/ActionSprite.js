@@ -1,4 +1,4 @@
-//¾«Áé×´Ì¬
+//ç²¾çµçŠ¶æ€
 var ActionState ={
 	kActionStateNone :0,
 	kActionStateIdle :1,
@@ -12,30 +12,30 @@ var ActionSpriteSeries={
 } ;
 
 
-// »î¶¯¾«Áé
+// æ´»åŠ¨ç²¾çµ
 var ActionSprite = cc.Sprite
 .extend({
-	_hit_sprite:null ,//¹¥»÷Ğ§¹û¾«Áé
+	_hit_sprite:null ,//æ”»å‡»æ•ˆæœç²¾çµ
 	
-	_idleAction :null,// Õ¾Á¢
-	_attackAction :null,// ¹¥»÷
-	_walkAction :null,// ĞĞ×ß
-	_hurtAction :null,// ÊÜÉË
-	_knockedOutAction :null,// µ¹ÏÂ
+	_idleAction :null,// ç«™ç«‹
+	_attackAction :null,// æ”»å‡»
+	_walkAction :null,// è¡Œèµ°
+	_hurtAction :null,// å—ä¼¤
+	_knockedOutAction :null,// å€’ä¸‹
 	
 	_actionState :ActionState.kActionStateNone,
 	_velocity :new cc.Point(0,0),
 	_desiredPosition:new cc.Point(0,0),
-	_isWalking:false,//ÕıÔÚĞĞ×ß
+	_isWalking:false,//æ­£åœ¨è¡Œèµ°
 	
-	//ÖĞĞÄ¾àÀë
+	//ä¸­å¿ƒè·ç¦»
 	_centerToSides :35,
 	_centerToBottom :35,
 	
 	ctor : function() {
 		this._super();
 	},
-	//Õ¾Á¢
+	//ç«™ç«‹
 	idle:function(){
 		if (this._actionState!= ActionState.kActionStateIdle)
 		{
@@ -48,19 +48,19 @@ var ActionSprite = cc.Sprite
 		}
 		
 	},
-	//ĞĞ×ß
+	//è¡Œèµ°
 	walkWithDirection:function(direction){
 		
-		if (this._actionState ==  ActionState.kActionStateIdle)//Ö´ĞĞ¹¥»÷¶¯»­
+		if (this._actionState ==  ActionState.kActionStateIdle)//æ‰§è¡Œæ”»å‡»åŠ¨ç”»
 		{
 			this.stopAllActions();
 			
-			if(this._hit_sprite)this._hit_sprite.stopAllActions();//Í£Ö¹¹¥»÷Ğ§¹û
+			if(this._hit_sprite)this._hit_sprite.stopAllActions();//åœæ­¢æ”»å‡»æ•ˆæœ
 			
 			this.runAction(this._walkAction);
 			this._actionState = ActionState.kActionStateWalk;
 		}
-		if (this._actionState == ActionState.kActionStateWalk)//ĞĞ×ßÒÆ¶¯Î»ÖÃ
+		if (this._actionState == ActionState.kActionStateWalk)//è¡Œèµ°ç§»åŠ¨ä½ç½®
 		{
 			this._velocity = new cc.Point(direction.x * this._walkSpeed, direction.y * this._walkSpeed);
 			
@@ -77,12 +77,12 @@ var ActionSprite = cc.Sprite
 		}
 	},
 	
-	//²½ËÙ
+	//æ­¥é€Ÿ
     setWalkSpeed:function(s){
 		this._walkSpeed =s;
 	},
 	
-	//¸üĞÂÒÆ¶¯·½ÏòÎ»ÖÃ
+	//æ›´æ–°ç§»åŠ¨æ–¹å‘ä½ç½®
 	update:function(dt){
 		if (this._actionState == ActionState.kActionStateWalk)
 		{
@@ -91,22 +91,22 @@ var ActionSprite = cc.Sprite
 			
 		}
 	},
-	//¹¥»÷Íê
+	//æ”»å‡»å®Œ
 	attackDone:function(){
 		this.idle();
 	},
-	//¹¥»÷
+	//æ”»å‡»
 	attack:function(){
 		
 		if (this._actionState ==ActionState. kActionStateIdle ||this. _actionState ==ActionState. kActionStateAttack || this._actionState == ActionState.kActionStateWalk)
 		{
 			this.stopAllActions();
 			
-			if(this._hit_sprite)this._hit_sprite.stopAllActions();//Í£Ö¹¹¥»÷Ğ§¹û
+			if(this._hit_sprite)this._hit_sprite.stopAllActions();//åœæ­¢æ”»å‡»æ•ˆæœ
 			
 			this.runAction(this._attackAction);
 
-			//¹¥»÷Ğ§¹û
+			//æ”»å‡»æ•ˆæœ
 			if(this._hit_sprite ){
 				
 				this._hit_sprite .runAction(this._attackHitAction );
@@ -114,11 +114,11 @@ var ActionSprite = cc.Sprite
 			this._actionState =ActionState. kActionStateAttack;
 		}
 	},
-	//¹¥»÷Ğ§¹û¾«Áé
+	//æ”»å‡»æ•ˆæœç²¾çµ
 	getHitSprite:function(){
 		return this._hit_sprite;
 	},
-	//½«ÒªÒÆ¶¯µÄÎ»ÖÃ
+	//å°†è¦ç§»åŠ¨çš„ä½ç½®
 	getDesiredPosition:function(){
 		return this._desiredPosition;
 	},
@@ -144,10 +144,10 @@ var ActionSprite = cc.Sprite
 		this._super(p);
 		
 		
-		// ¹¥»÷Ğ§¹ûÎ»ÖÃ
+		// æ”»å‡»æ•ˆæœä½ç½®
 		if (this.getHitSprite()){
 			this.getHitSprite().setPosition(
-					this.getPosition());// ¹¥»÷Ğ§¹û
+					this.getPosition());// æ”»å‡»æ•ˆæœ
 		}
 	}
 	

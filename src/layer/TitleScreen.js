@@ -1,21 +1,14 @@
 cc.dumpConfig();
 
-// ¿ª»ú»­Ãæ
+// å¼€æœºç”»é¢
 var TitleScreen = cc.Layer.extend({
 	_screenSprite : null,
 	init : function() {
 		var bRet = false;
 		if (this._super()) {
 			var winSize = cc.Director.getInstance().getWinSize();
-			// ¿ØÖÆ
+			// æ§åˆ¶
 			this.initControll();
-			// ¿ª»ú»­Ãæ
-			this._screenSprite = cc.Sprite.create(s_mugen_power_logo_img);
-			this._screenSprite.setPosition(winSize.width / 2,
-					winSize.height / 2);
-			this._screenSprite.setScale(winSize.width
-					/ this._screenSprite.getTextureRect().width);// ·Å´ó
-			this.addChild(this._screenSprite, -9);
 
 			bRet = true;
 		}
@@ -38,7 +31,7 @@ var TitleScreen = cc.Layer.extend({
 		if (cc.KEY.enter == key) {
 			// initialize director
 			var director = cc.Director.getInstance();
-			// Ö÷ÓÎÏ·»­Ãæ
+			// ä¸»æ¸¸æˆç”»é¢
 			cc.Loader.preload(g_maingame, function() {
 
 				director.replaceScene(cc.TransitionFade.create(1.2, GameScene
