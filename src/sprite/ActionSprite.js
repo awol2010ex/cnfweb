@@ -18,7 +18,10 @@ var ActionSprite = cc.Sprite
 	_hit_sprite:null ,//攻击效果精灵
 	
 	_idleAction :null,// 站立
-	_attackAction :null,// 攻击
+	_attackTwoAction :null,// 攻击2
+	_attackOneAction :null,// 攻击1
+	_attackThreeAction :null,// 攻击3
+	_attackAction:null, 
 	_walkAction :null,// 行走
 	_hurtAction :null,// 受伤
 	_knockedOutAction :null,// 倒下
