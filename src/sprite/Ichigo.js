@@ -56,7 +56,7 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 		}
 
 		var attack_animation = cc.Animation.create(this.anim_frames_attack,
-				1.0 / 12.0);
+				1.0 / 30.0);
 		var callFunc = cc.CallFunc.create(this.attackDone, this, null);// 攻击后站立
 		this._attackAction = cc.Sequence.create(cc.Animate
 				.create(attack_animation), callFunc);
@@ -92,8 +92,8 @@ ActionSpriteSeries.Ichigo = ActionSprite.extend({
 		this.anim_frames_attack_hit.push(this.emptyFrame );
 
 		var attack_hit_animation = cc.Animation.create(
-				this.anim_frames_attack_hit, 1.0 / 12.0);
-		this._attackHitAction = cc.Sequence.create( cc.DelayTime.create(2.0 / 12.0),cc.Animate
+				this.anim_frames_attack_hit, 1.0 / 30.0);
+		this._attackHitAction = cc.Sequence.create( cc.DelayTime.create(2.0 / 30.0),cc.Animate
 				.create(attack_hit_animation));
 
 		
